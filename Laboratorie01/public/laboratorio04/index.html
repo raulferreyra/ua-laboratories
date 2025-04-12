@@ -11,11 +11,14 @@
 <body>
     <h1>Chat con Nick y Usuarios conectados 🧨</h1>
 
+    <!-- Login area -->
     <div id="login">
         <input placeholder="Tu Nick" id="nickname" />
         <button id="start">Entrar al Chat</button>
     </div>
+    <!-- End login area-->
 
+    <!-- Chat area -->
     <div id="chat">
         <ul id="messages"></ul>
         <form id="form">
@@ -23,7 +26,9 @@
             <button type="submit">Enviar</button>
         </form>
     </div>
+    <!-- End chat area -->
 
+    <!-- Socket.io script -->
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
@@ -61,6 +66,7 @@
             window.scrollTo(0, document.body.scrollHeight);
         });
     </script>
+    <!-- End Socket.io script -->
 </body>
 
 </html>
