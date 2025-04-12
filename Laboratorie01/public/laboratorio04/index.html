@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat básico con Nick 🧨</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Chat básico con Nick 🧨</h1>
+
+    <div id="login">
+        <input placeholder="Tu Nick" id="nickname" />
+        <button id="start">Entrar al Chat</button>
+    </div>
+
+    <div id="chat">
+        <ul id="messages"></ul>
+        <form id="form">
+            <input id="input" autocomplete="off" placeholder="Escriba un mensaje..." />
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        let nick = '';
+        const loginDiv = document.getElementById('login');
+        const nickInput = document.getElementById('nickname');
+        const startButton = document.getElementById('start');
+        const chatDiv = document.getElementById('chat');
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+        const messages = document.getElementById('messages');
+
+        startButton.addEventListener('click', () => {
+            const value = nickInput.value.trim();
+            if (value) {
+                nick = value;
+                loginDiv.style.display = 'none';
+                chatDiv.style.display = 'block';
+            }
+        })
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (input.value.trim() !== '') {
+                const msg = `${nick}: ${input.value}`
+                socket.emit('chat message', msg);
+                input.value = '';
+            }
+        });
+
+        socket.on('chat message', function (msg) {
+            const item = document.createElement('li');
+            item.textContent = msg;
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    </script>
+</body>
+
+</html>
