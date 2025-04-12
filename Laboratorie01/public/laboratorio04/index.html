@@ -53,6 +53,7 @@
                 nick = value;
                 loginDiv.style.display = 'none';
                 chatDiv.style.display = 'block';
+                socket.emit('nuevo usuario', nick);
             }
         })
 
