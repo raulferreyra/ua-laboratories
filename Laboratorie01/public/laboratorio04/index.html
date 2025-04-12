@@ -72,6 +72,15 @@
             messages.appendChild(item);
             window.scrollTo(0, document.body.scrollHeight);
         });
+
+        socket.on('usuarios conectados', function (usuarios) {
+            listaUsuarios.innerHTML = ''; // Limpiar la lista antes de agregar nuevos usuarios
+            usuarios.forEach(usuario => {
+                const item = document.createElement('li');
+                item.textContent = usuario;
+                listaUsuarios.appendChild(item);
+            });
+        });
     </script>
     <!-- End Socket.io script -->
 </body>
